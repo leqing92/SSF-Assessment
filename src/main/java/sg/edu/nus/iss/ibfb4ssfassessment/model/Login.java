@@ -20,7 +20,7 @@ public class Login {
     // @Past // cannot validate today date 
     @DateTimeFormat (pattern = "yyyy-MM-dd")
     @PastOnly (message = "Birthday cannot be a current or future date")
-    @NotNull
+    @NotNull (message = "Mandatory field")
     private Date birthDate;
 
     public Login() {
