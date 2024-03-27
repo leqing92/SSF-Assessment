@@ -73,10 +73,10 @@ public class MovieController {
         }
         else{
             if(age >= 13){
-                model.addAttribute("msg", "Age must be equals or great than 18 years old to be able to book R rated Movie");
+                model.addAttribute("msg", "Age must be equals or greater than 18 years old to be able to book R rated movie");
             }
             else{
-                model.addAttribute("msg", "Age must be equals or great than 13 years old to be able to book PG-13 rated Movie");
+                model.addAttribute("msg", "Age must be equals or greater than 13 years old to be able to book PG-13 rated Movie and equals or greater than 18 to be able to book R rated movie");
             }
             return "BookError";
         }
