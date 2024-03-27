@@ -85,7 +85,11 @@ public class MovieController {
     // TODO: Task 9
     // ... ...
     @GetMapping(path = "/list/{id}")
-    public String getMovieById(@PathVariable ("id") String id, Model model){
+    public String getMovieById(@PathVariable ("id") String id, HttpSession session, Model model){
+        Login login = (Login) session.getAttribute("login");
+        if(null == login){
+            return "redirect:/";
+        }
         if(!movieSvc.isMovieIdExist(Integer.parseInt(id))){
             return "idnotfound";
         }
