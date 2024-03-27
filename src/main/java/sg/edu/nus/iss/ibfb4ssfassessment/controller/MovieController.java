@@ -45,21 +45,30 @@ public class MovieController {
     public String bookMovie(HttpSession session,
                             @PathVariable ("id") String id,
                             Model model){
+
         Login login = (Login) session.getAttribute("login");
+        if(null == login){
+            return "redirect:/";
+        }
+
+        if(!movieSvc.isMovieIdExist(Integer.parseInt(id))){
+            return "idnotfound";
+        }
+
         Integer age = ageCal(login.getBirthDate());
         Movie movie = movieSvc.getMovieById(Integer.parseInt(id));
         if(age >= 18){
             model.addAttribute("title", movie.getTitle());
-            movie.setCount(movie.getCount()+1);
+            movie.setCount(movie.getCount() + 1);
             movieSvc.saveRecord(movie);
-            System.out.println(movie.toJsonString());
+            // System.out.println(movie.toJsonString());
             return "BookSuccess";
         }
         else if(age >= 13 && "PG-13".equals(movie.getRated())){
             model.addAttribute("title", movie.getTitle());
-            movie.setCount(movie.getCount()+1);
+            movie.setCount(movie.getCount() + 1);
             movieSvc.saveRecord(movie);
-            System.out.println(movie.toJsonString());
+            // System.out.println(movie.toJsonString());
             return "BookSuccess";
         }
         else{
@@ -75,7 +84,15 @@ public class MovieController {
 
     // TODO: Task 9
     // ... ...
-
+    @GetMapping(path = "/list/{id}")
+    public String getMovieById(@PathVariable ("id") String id, Model model){
+        if(!movieSvc.isMovieIdExist(Integer.parseInt(id))){
+            return "idnotfound";
+        }
+        model.addAttribute("movie", movieSvc.getMovieById(Integer.parseInt(id)));
+        return "movie";
+    }
+    //https://stackoverflow.com/questions/64883505/calculate-age-between-two-java-util-date
     private Integer ageCal(Date age){
         Date today = new Date();
         OffsetDateTime startOdt = age.toInstant().atOffset(ZoneOffset.UTC);

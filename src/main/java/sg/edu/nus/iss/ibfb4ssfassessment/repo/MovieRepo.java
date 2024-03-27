@@ -23,13 +23,18 @@ public class MovieRepo {
     @Qualifier(Util.REDIS_ONE)
     RedisTemplate <String, String> template;
 
-    //Create
+//Create
     public void createMovie(Movie movie) {
         HashOperations<String, String, String> hashOps = template.opsForHash();
         hashOps.put(Util.KEY_MOVIE, movie.getMovieId().toString(), movie.toJsonString());        
     }
+//Read
+    public Boolean isMovieIdExist(Integer id){
+        HashOperations<String, String, String> hashOps = template.opsForHash();
+        return hashOps.hasKey(Util.KEY_MOVIE, id.toString());
+    }
 
-    public long getNumberOfEvents() {
+    public long getNumberOfMovies() {
         HashOperations<String, String, String> hashOps = template.opsForHash();
         return hashOps.size(Util.KEY_MOVIE);
     }
@@ -50,7 +55,7 @@ public class MovieRepo {
         }
         return movies;
     }
-    
+    //for Redis
     public Movie parseMovieFromHardcodedMethod(String movieInString) {
         JsonObject jsonObject = Json.createReader(new StringReader(movieInString)).readObject();        
 

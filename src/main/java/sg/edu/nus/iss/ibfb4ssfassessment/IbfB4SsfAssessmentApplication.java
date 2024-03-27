@@ -25,6 +25,7 @@ public class IbfB4SsfAssessmentApplication implements CommandLineRunner {
 		SpringApplication.run(IbfB4SsfAssessmentApplication.class, args);
 	}
 
+	// TODO: Task 2
 	@Override
 	public void run(String... args) throws Exception {
 		List<Movie> movies= fileSvc.readFile(Util.MOVIEFILE);

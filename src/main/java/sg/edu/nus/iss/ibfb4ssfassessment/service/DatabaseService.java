@@ -1,6 +1,8 @@
 package sg.edu.nus.iss.ibfb4ssfassessment.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,16 @@ public class DatabaseService {
     }
 
     // TODO: Task 3 (Map or List - comment where necesary)
-    public long getNumberOfEvents() {
-        return movieRepo.getNumberOfEvents();
+    public long getNumberOfMovies() {
+        return movieRepo.getNumberOfMovies();
     }
 
     public Movie getMovie(Integer index) {
         return movieRepo.getMovie(index);
+    }
+
+    public Boolean isMovieIdExist (Integer id){
+        return movieRepo.isMovieIdExist(id);
     }
 
     // TODO: Task 4 (Map)
@@ -34,6 +40,6 @@ public class DatabaseService {
 
     // TODO: Task 5
     public List<Movie> getAllMovies() {
-        return movieRepo.getAllMovies();
+        return movieRepo.getAllMovies().stream().sorted(Comparator.comparing(Movie::getMovieId)).collect(Collectors.toList());
     }
 }

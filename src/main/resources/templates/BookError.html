@@ -9,14 +9,18 @@
         <title>Error</title>
     </head>
     <body>
-        <h1>Error</h1>
-        <hr></hr>
-        <br>
-        <p>You didn't manage to book the movie due to some error.</p>
-        <p>Please try again another time.</p>
-        <p>You are underage to watch the movie.</p>
-        <p data-th-text = "${msg}"></p>
-        <br>
-        <a href="/movies/list">Back to Movie Listing</a>
+        <div class="container">
+            <h1>Error</h1>
+            <hr></hr>
+            <br>
+            <p>You didn't manage to book the movie due to some error.</p>
+            <p>Please try again another time.</p>
+            <p>You are underage to watch the movie.</p>
+            <div class="alert alert-danger" role="alert">
+                <p data-th-text = "${msg}"></p>
+            </div>
+            <br>
+            <a class="btn btn-primary" href="/movies/list">Back to Movie Listing</a>
+        </div>
     </body>
 </html>

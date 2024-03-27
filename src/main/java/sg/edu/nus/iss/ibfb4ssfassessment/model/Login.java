@@ -7,8 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import sg.edu.nus.iss.ibfb4ssfassessment.util.PastOnly;
 
 public class Login {
     // @NotNull (message = "Mandatory field")
@@ -17,8 +17,9 @@ public class Login {
     @Size (max = 50, message = "Maximum length of 50 characters only")
     private String email;
     
+    // @Past // cannot validate today date 
     @DateTimeFormat (pattern = "yyyy-MM-dd")
-    @Past (message = "Birthdat cannot be a current or future date")
+    @PastOnly (message = "Birthday cannot be a current or future date")
     @NotNull
     private Date birthDate;
 
